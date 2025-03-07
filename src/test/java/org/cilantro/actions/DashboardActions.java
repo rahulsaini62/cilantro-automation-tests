@@ -7,7 +7,6 @@ import org.testng.Assert;
 import static org.apache.logging.log4j.LogManager.getLogger;
 import static org.cilantro.actions.CommonActions.sleep;
 import static org.cilantro.actions.elements.ClickableActions.withMouse;
-import static org.cilantro.actions.elements.ElementActions.onElement;
 import static org.cilantro.actions.elements.ElementFinder.waitForElementClickable;
 import static org.cilantro.manager.ParallelSession.getSession;
 import static org.cilantro.pages.DashboardPage.commonPage;

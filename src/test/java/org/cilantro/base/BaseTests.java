@@ -59,28 +59,28 @@ public class BaseTests {
         ParallelSession.clearSession();
     }
 
-    @AfterAll
-    public static void afterAll() {
-        File folderToZip = new File("target/allure-results");
-        String zipFileName = "report.zip";
-
-        // Send the email with attachment
-        try {
-            zipFolder(folderToZip, zipFileName);
-            System.out.println("Folder has been successfully zipped into: " + zipFileName);
-
-            EmailSender.sendEmail(
-                    "rahul.saini1@appinventiv.com",
-                    "CILANTRO Test Result: ",
-                    "Test result details are attached.",
-                    zipFileName
-            );
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @AfterAll
+//    public static void afterAll() {
+//        File folderToZip = new File("target/allure-results");
+//        String zipFileName = "report.zip";
+//
+//        // Send the email with attachment
+//        try {
+//            zipFolder(folderToZip, zipFileName);
+//            System.out.println("Folder has been successfully zipped into: " + zipFileName);
+//
+//            EmailSender.sendEmail(
+//                    "rahul.saini1@appinventiv.com",
+//                    "CILANTRO Test Result: ",
+//                    "Test result details are attached.",
+//                    zipFileName
+//            );
+//        } catch (MessagingException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public static void zipFolder(File folder, String zipFileName) throws IOException {
         // Create a file output stream to write to the zip file
