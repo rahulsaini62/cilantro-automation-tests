@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json.schemastore.org/cilantro-config.json",
+  "listeners_package": "org.cilantro.listeners",
+  "common_setting": {
+    "api": {
+      "logging": {
+        "request": true,
+        "response": true
+      },
+      "timeout": {
+        "read_timeout": 10,
+        "write_timeout": 10,
+        "connection_timeout": 10
+      },
+      "schema_path": "schema/"
+    }
+  },
+  "ui": {
+    "timeout": {
+      "implicit_wait": 5,
+      "explicit_wait": 30,
+      "page_load_timeout": 30,
+      "script_timeout": 10,
+      "highlight_delay": 100
+    },
+    "logging": {
+      "exclude_logs": [
+        "bugreport"
+      ]
+    },
+    "screenshot": {
+      "enabled": true,
+      "path": "./screenshots",
+      "extension": "jpeg",
+      "prefix": "SCR"
+    },
+    "web": {
+      "test_local_chrome": {
+        "base_url": "https://cilantrouat.mycompass.co.in",
+        "browser": "CHROME",
+        "page_load_strategy": "NORMAL",
+        "highlight": false,
+        "headless": false ,
+        "resize": "MAXIMIZED",
+        "custom_size": {
+          "width": 1580,
+          "height": 1080
+        },
+        "browser_options": [
+          "use-fake-device-for-media-stream",
+          "use-fake-ui-for-media-stream"
+        ]
+      },
+      "test_local_firefox": {
+        "browser": "FIREFOX"
+      },
+      "test_local_edge": {
+        "base_url": "https://cilantrouat.mycompass.co.in",
+        "browser": "EDGE",
+        "resize": "FULL_SCREEN"
+      },
+      "test_local_safari": {
+        "browser": "SAFARI"
+      }
+    },
+    "api": {
+      "test_restful_admin": {
+        "base_uri": "https://api-cilantro-qas.mycompass.co.in/",
+        "timeout": {
+          "connection_timeout": 60,
+          "read_timeout": 60,
+          "write_timeout": 60
+        },
+        "logging": {
+          "request": true,
+          "response": true
+        }
+      },
+      "test_restful_user": {
+        "base_uri": "https://cilantroapimqa.azure-api.net/auth/v1/",
+        "timeout": {
+          "connection_timeout": 60,
+          "read_timeout": 60,
+          "write_timeout": 60
+        },
+        "logging": {
+          "request": true,
+          "response": true
+        }
+      }
+    }
+  }
+}

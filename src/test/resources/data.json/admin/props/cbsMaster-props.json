@@ -1,0 +1,19 @@
+{
+  "service_type_master_table_column": [
+    "Service Type",
+    "Status",
+    "Action"
+  ],
+  "role_master_title" : "Role Master",
+  "role_master_column_txt" : ["Role Name","Action"],
+  "create_role_txt" : "Create Role",
+  "create_role_popup_btn_wrapper_txt" : ["Cancel","Submit"],
+  "create_role_popup_title" : "Create Role",
+   "role_name_txt" : "Role Name*",
+  "create_role_txt_box_placeholder_txt" : "Enter here",
+  "duplicate_role_name_error_msg" : "Duplicate entry not allowed for Role Name.",
+  "created_success_msg" : "Created successfully",
+  "discard_changes_popup_title" : "Discard Changes",
+  "discard_changes_popup_msg" : "All unsaved changes will be lost. Are you sure you want to continue?"
+
+}
