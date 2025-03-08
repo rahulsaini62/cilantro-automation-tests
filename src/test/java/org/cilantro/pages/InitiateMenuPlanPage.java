@@ -219,4 +219,14 @@ public class InitiateMenuPlanPage {
             .web(xpath("(//h6[@class='MuiTypography-root MuiTypography-h6 table-title css-1rl0qlz'])[position() > 2]"))
             .name("Days And Dates Header")
             .build();
+
+    private final Locator tableRow = Locator.buildLocator()
+            .web(cssSelector("div.content > div > div > table > tbody:nth-child(n) > tr"))
+            .name("Table Row")
+            .build();
+
+    private final Locator daysAndDatesHeaderForFoodProgram = Locator.buildLocator()
+            .web(xpath("(//h6[@class='MuiTypography-root MuiTypography-h6 table-title css-1rl0qlz'])[position() > 3]"))
+            .name("Days And Dates Header")
+            .build();
 }

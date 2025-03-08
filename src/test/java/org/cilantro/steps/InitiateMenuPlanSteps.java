@@ -61,6 +61,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
         waitForThePageLoader();
         initiateMenuPlanActions.verifyDishNames();
         initiateMenuPlanActions.verifyMealCardVisibility();
+        initiateMenuPlanActions.verifyDateTimeAssertion();
     }
 
     @And("User click on {string} dropdown on initiate menu plan page.")
@@ -124,4 +125,11 @@ public class InitiateMenuPlanSteps extends SharedActions {
         initiateMenuPlanActions.clickOnDishCategory();
     }
 
+    @And("Verify selected dish is displayed for food program on initiate menu plan page.")
+    public void verifySelectedDishIsDisplayedForFoodProgramOnInitiateMenuPlanPage() {
+        waitForThePageLoader();
+        initiateMenuPlanActions.verifyDishNames();
+        initiateMenuPlanActions.verifyMealCardVisibility();
+        initiateMenuPlanActions.verifyDateTimeAssertionForFoodProgram();
+    }
 }

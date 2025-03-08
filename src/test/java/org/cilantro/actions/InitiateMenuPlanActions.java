@@ -1,15 +1,15 @@
 package org.cilantro.actions;
 
 import org.cilantro.enums.PlatformType;
+import org.cilantro.enums.WaitStrategy;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static org.cilantro.actions.CommonActions.sleep;
 import static org.cilantro.actions.elements.ClickableActions.withMouse;
@@ -117,7 +117,7 @@ public class InitiateMenuPlanActions extends SharedActions {
         withMouse(initiateMenuPlanPage().getMealHeader(mealName)).click();
     }
 
-    public void verifyMealCardVisibility() throws ParseException {
+    public void verifyMealCardVisibility() {
         verifyElementIsDisplayed(initiateMenuPlanPage().getLastPlanDate());
         verifyElementIsDisplayed(initiateMenuPlanPage().getColorCode());
         verifyElementIsDisplayed(initiateMenuPlanPage().getFoodCategoryLogo());
@@ -125,8 +125,24 @@ public class InitiateMenuPlanActions extends SharedActions {
         verifyElementIsDisplayed(initiateMenuPlanPage().getDishAlias());
         verifyElementIsDisplayed(initiateMenuPlanPage().getBaseTxt());
         verifyElementIsDisplayed(initiateMenuPlanPage().getDaysAndDatesHeader());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM", Locale.ENGLISH);
-        Date actualFromDate = dateFormat.parse(onElement(initiateMenuPlanPage().getDaysAndDatesHeader()).getText());
+    }
+
+    public void verifyDateTimeAssertion() {
+        List<String> dateValues = new ArrayList<>();
+        finds(initiateMenuPlanPage().getDaysAndDatesHeader(), WaitStrategy.VISIBLE).forEach(webElement -> dateValues.add(webElement.getText()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy");
+        int year = 2025;
+        LocalDate startDate = LocalDate.parse(actFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate endDate = LocalDate.parse(actToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        for (String dateString : dateValues) {
+            String fullDateString = dateString + " " + year;
+            LocalDate date = LocalDate.parse(fullDateString, formatter);
+            if (!date.isBefore(startDate) && !date.isAfter(endDate)) {
+                System.out.println(dateString + " is within the range.");
+            } else {
+                System.out.println(dateString + " is NOT within the range.");
+            }
+        }
     }
 
     public void clickOnDishCategory() {
@@ -186,8 +202,36 @@ public class InitiateMenuPlanActions extends SharedActions {
     }
 
     public void clickOnAddButton(){
+        List<WebElement> rowsBefore = finds(initiateMenuPlanPage().getTableRow());
+        int rowCountBefore = rowsBefore.size();
         sleep(3000);
         withMouse(initiateMenuPlanPage().getAddButton()).jsxClick();
+        waitForThePageLoader();
+        List<WebElement> rowsAfter = finds(initiateMenuPlanPage().getTableRow());
+        int rowCountAfter = rowsAfter.size();
+        if (rowCountAfter > rowCountBefore) {
+            System.out.println("Row successfully added!");
+        } else {
+            System.out.println("Row was NOT added!");
+        }
+    }
+
+    public void verifyDateTimeAssertionForFoodProgram() {
+        List<String> dateValues = new ArrayList<>();
+        finds(initiateMenuPlanPage().getDaysAndDatesHeaderForFoodProgram(), WaitStrategy.VISIBLE).forEach(webElement -> dateValues.add(webElement.getText()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy");
+        int year = 2025;
+        LocalDate startDate = LocalDate.parse(actFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate endDate = LocalDate.parse(actToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        for (String dateString : dateValues) {
+            String fullDateString = dateString + " " + year;
+            LocalDate date = LocalDate.parse(fullDateString, formatter);
+            if (!date.isBefore(startDate) && !date.isAfter(endDate)) {
+                System.out.println(dateString + " is within the range.");
+            } else {
+                System.out.println(dateString + " is NOT within the range.");
+            }
+        }
     }
 
 }
