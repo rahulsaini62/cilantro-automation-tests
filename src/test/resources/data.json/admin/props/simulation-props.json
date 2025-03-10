@@ -28,5 +28,7 @@
     "Reports",
     "Admin"
   ],
-  "page_heading": "Initiate Menu Plan"
+  "page_heading": "Initiate Menu Plan",
+  "remove_category_heading": "Remove Categories",
+  "remove_category_subheading": "This will remove the entire row. All changes will be lost. Do you want to continue?"
 }

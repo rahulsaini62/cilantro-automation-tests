@@ -102,6 +102,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("Verify the ui of initiate menu plan page.")
     public void verifyTheUiOfInitiateMenuPlanPage() {
         initiateMenuPlanActions.verifyUi();
+        initiateMenuPlanActions.clickOnClearAllMenuBtn();
     }
 
     @And("User click on no button of publish modal on initiate menu plan page.")
@@ -131,5 +132,15 @@ public class InitiateMenuPlanSteps extends SharedActions {
         initiateMenuPlanActions.verifyDishNames();
         initiateMenuPlanActions.verifyMealCardVisibility();
         initiateMenuPlanActions.verifyDateTimeAssertionForFoodProgram();
+    }
+
+    @And("User click on particular day and select meals on initiate menu plan page.")
+    public void userClickOnParticularDayAndSelectMealsOnInitiateMenuPlanPage() {
+        initiateMenuPlanActions.getSelectMealForParticularDay();
+    }
+
+    @And("Verify remove categories modal when user click on delete icon under dish category on initiate menu plan page.")
+    public void verifyRemoveCategoriesModalWhenUserClickOnDeleteIconUnderDishCategoryOnInitiateMenuPlanPage() {
+        initiateMenuPlanActions.verifyRemoveCategoriesModal();
     }
 }

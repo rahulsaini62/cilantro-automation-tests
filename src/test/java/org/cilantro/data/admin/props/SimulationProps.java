@@ -14,4 +14,6 @@ public class SimulationProps {
     private String       dishHeadingUnderDrpdn;
     private List<String> pageHeaderDrpdn;
     private String       pageHeading;
+    private String       removeCategoryHeading;
+    private String       removeCategorySubheading;
 }

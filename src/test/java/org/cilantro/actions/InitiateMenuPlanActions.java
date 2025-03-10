@@ -5,7 +5,6 @@ import org.cilantro.enums.WaitStrategy;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -101,6 +100,7 @@ public class InitiateMenuPlanActions extends SharedActions {
 
     public void clickOnDoneBtn() {
         withMouse(initiateMenuPlanPage().getDoneButton()).click();
+        onElement(initiateMenuPlanPage().getDishCategory()).verifyIsEnabled().isFalse();
     }
 
     public void verifyDishNames() {
@@ -127,6 +127,7 @@ public class InitiateMenuPlanActions extends SharedActions {
         verifyElementIsDisplayed(initiateMenuPlanPage().getDishAlias());
         verifyElementIsDisplayed(initiateMenuPlanPage().getBaseTxt());
         verifyElementIsDisplayed(initiateMenuPlanPage().getDaysAndDatesHeader());
+        verifyElementIsDisplayed(initiateMenuPlanPage().getPriceTagOnRegularMealCard());
     }
 
     public void verifyDateTimeAssertion() {
@@ -150,6 +151,7 @@ public class InitiateMenuPlanActions extends SharedActions {
     public void clickOnDishCategory() {
         onElement(initiateMenuPlanPage().getAddButton()).isDisplayed();
         withMouse(initiateMenuPlanPage().getDishCategory()).click();
+        verifyElementIsDisplayed(initiateMenuPlanPage().getDeleteBtn());
     }
 
     public void enterDishNameOnSearchField(String dishName){
@@ -192,6 +194,8 @@ public class InitiateMenuPlanActions extends SharedActions {
                 webElement -> actPageHeaderDrpdn.add(webElement.getText()));
         List<String> expPageHeaderDrpdn = loadSimulationProps().getPageHeaderDrpdn();
         Assert.assertEquals(actPageHeaderDrpdn, expPageHeaderDrpdn);
+        String searchField = onElement(initiateMenuPlanPage().getSearchField()).getAttribute("placeholder");
+        assertEquals(searchField,"Search Dishes/Items");
     }
 
     public void clickOnNoBtnOnPublishModal(){
@@ -235,5 +239,44 @@ public class InitiateMenuPlanActions extends SharedActions {
             }
         }
     }
+
+    public void clickOnClearAllMenuBtn(){
+        withMouse(initiateMenuPlanPage().getClearAllMenuBtn()).click();
+    }
+
+    public List<String> getSelectMealForParticularDay() {
+        waitForThePageLoader();
+        withMouse(initiateMenuPlanPage().getParticularDayMeals()).click();
+        verifyElementIsDisplayed(initiateMenuPlanPage().getMealCheckBox());
+        List<WebElement> checkboxes = finds(initiateMenuPlanPage().getMealCheckBox(), VISIBLE);
+        for (int i = 0; i < 4 && i < checkboxes.size(); i++) {
+            if (!checkboxes.get(i).isSelected()) {
+                checkboxes.get(i).click();
+                String mealName = checkboxes.get(i).getText();
+                selectedMeals.add(mealName + " (Kg)");
+            }
+        }
+        return selectedMeals;
+    }
+
+    public void verifyRemoveCategoriesModal(){
+        List<WebElement> rowsBefore = finds(initiateMenuPlanPage().getTableRow());
+        int rowCountBefore = rowsBefore.size();
+        sleep(3000);
+        withMouse(initiateMenuPlanPage().getDeleteBtn()).click();
+        onElement(initiateMenuPlanPage().getModalHeading()).verifyText().isEqualTo(loadSimulationProps().getRemoveCategoryHeading());
+        onElement(initiateMenuPlanPage().getModalSubheading()).verifyText().isEqualTo(loadSimulationProps().getRemoveCategorySubheading());
+        onElement(initiateMenuPlanPage().getVerifyBtnArea()).isDisplayed();
+        withMouse(initiateMenuPlanPage().getYesBtnOnModal()).click();
+        waitForThePageLoader();
+        List<WebElement> rowsAfter = finds(initiateMenuPlanPage().getTableRow());
+        int rowCountAfter = rowsAfter.size();
+        if (rowCountAfter < rowCountBefore) {
+            System.out.println("Row successfully Deleted!");
+        } else {
+            System.out.println("Row was NOT Deleted!");
+        }
+    }
+
 
 }

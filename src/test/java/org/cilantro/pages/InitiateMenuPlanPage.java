@@ -205,7 +205,7 @@ public class InitiateMenuPlanPage {
             .name("Yes Button On Clear Modal")
             .build();
 
-    private final Locator priceOnMealCard = Locator.buildLocator()
+    private final Locator priceOnMealCardOnFoodProgram = Locator.buildLocator()
             .web(cssSelector("div.price"))
             .name("Price on Meal Card")
             .build();
@@ -228,5 +228,40 @@ public class InitiateMenuPlanPage {
     private final Locator daysAndDatesHeaderForFoodProgram = Locator.buildLocator()
             .web(xpath("(//h6[@class='MuiTypography-root MuiTypography-h6 table-title css-1rl0qlz'])[position() > 3]"))
             .name("Days And Dates Header")
+            .build();
+
+    private final Locator clearAllMenuBtn = Locator.buildLocator()
+            .web(xpath("//button[text()=' Clear All Menu']"))
+            .name("Clear All Menu Btn")
+            .build();
+
+    private final Locator priceTagOnRegularMealCard = Locator.buildLocator()
+            .web(cssSelector("strong.price"))
+            .name("Price Tag On Regular meal card")
+            .build();
+
+    private final Locator deleteBtn = Locator.buildLocator()
+            .web(cssSelector(".delete-btn"))
+            .name("Delete Btn")
+            .build();
+
+    private final Locator particularDayMeals = Locator.buildLocator()
+            .web(cssSelector("table > tbody:nth-child(2) > tr > td:nth-child(5) > div > div > div > div"))
+            .name("Apply for all days dropdown")
+            .build();
+
+    private final Locator searchField = Locator.buildLocator()
+            .web(cssSelector("input.MuiInputBase-input.css-aae3xl"))
+            .name("Search")
+            .build();
+
+    private final Locator verifyBtnArea = Locator.buildLocator()
+            .web(cssSelector("div.modal-footer.flex.justify-content-center"))
+            .name("Btn Area")
+            .build();
+
+    private final Locator yesBtnOnModal = Locator.buildLocator()
+            .web(cssSelector("//button[text()='Yes']"))
+            .name("Yes Btn")
             .build();
 }
