@@ -27,8 +27,8 @@ import static org.junit.Assert.assertTrue;
 public class InitiateMenuPlanActions extends SharedActions {
     private final PlatformType platformType;
     List<String> selectedMeals = new ArrayList<>();
-    static String actFromDate;
-    static String actToDate;
+    static String expFromDate;
+    static String expToDate;
 
     public InitiateMenuPlanActions() {
         this.platformType = getSession().getPlatformType();
@@ -46,11 +46,13 @@ public class InitiateMenuPlanActions extends SharedActions {
     }
 
     public void clickOnGoButton() {
-        actFromDate = onElement(initiateMenuPlanPage().getFromDateValue()).getAttribute("value");
-        actToDate = onElement(initiateMenuPlanPage().getToDateValue()).getAttribute("value");
+        expFromDate = onElement(initiateMenuPlanPage().getFromDateValue()).getAttribute("value");
+        expToDate = onElement(initiateMenuPlanPage().getToDateValue()).getAttribute("value");
         onElement(initiateMenuPlanPage().getGoButton()).isDisplayed();
         onElement(initiateMenuPlanPage().getGoButton()).isEnabled();
         withMouse(initiateMenuPlanPage().getGoButton()).click();
+        sleep(500);
+        waitForThePageLoader();
     }
 
     public void clickOnFromDateCalenderBtn() {
@@ -132,8 +134,8 @@ public class InitiateMenuPlanActions extends SharedActions {
         finds(initiateMenuPlanPage().getDaysAndDatesHeader(), WaitStrategy.VISIBLE).forEach(webElement -> dateValues.add(webElement.getText()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy");
         int year = 2025;
-        LocalDate startDate = LocalDate.parse(actFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
-        LocalDate endDate = LocalDate.parse(actToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate startDate = LocalDate.parse(expFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate endDate = LocalDate.parse(expToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
         for (String dateString : dateValues) {
             String fullDateString = dateString + " " + year;
             LocalDate date = LocalDate.parse(fullDateString, formatter);
@@ -175,10 +177,10 @@ public class InitiateMenuPlanActions extends SharedActions {
     }
 
     public void verifyDateRange(){
-        String expFromDate = onElement(initiateMenuPlanPage().getFromDateValueOnInitiateMenuPage()).getText();
-        String expToDate = onElement(initiateMenuPlanPage().getToDateValueOnInitiateMenuPage()).getText();
-        assertEquals(expFromDate,actFromDate);
-        assertEquals(expToDate,actToDate);
+        String actFromDate = onElement(initiateMenuPlanPage().getFromDateValueOnInitiateMenuPage()).getText();
+        String actToDate = onElement(initiateMenuPlanPage().getToDateValueOnInitiateMenuPage()).getText();
+        assertEquals(actFromDate,expFromDate);
+        assertEquals(actToDate,expToDate);
 
     }
     public void verifyUi(){
@@ -221,8 +223,8 @@ public class InitiateMenuPlanActions extends SharedActions {
         finds(initiateMenuPlanPage().getDaysAndDatesHeaderForFoodProgram(), WaitStrategy.VISIBLE).forEach(webElement -> dateValues.add(webElement.getText()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy");
         int year = 2025;
-        LocalDate startDate = LocalDate.parse(actFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
-        LocalDate endDate = LocalDate.parse(actToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate startDate = LocalDate.parse(expFromDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        LocalDate endDate = LocalDate.parse(expToDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
         for (String dateString : dateValues) {
             String fullDateString = dateString + " " + year;
             LocalDate date = LocalDate.parse(fullDateString, formatter);
