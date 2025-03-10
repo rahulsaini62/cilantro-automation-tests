@@ -1,4 +1,4 @@
-<code_scheme name="cbs-formatter" version="173">
+<code_scheme name="cilantro-formatter" version="173">
   <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_DecGIN" value="true" />
   <option name="SOFT_DecGINS" value="120" />
   <JavaCodeStyleSettings>

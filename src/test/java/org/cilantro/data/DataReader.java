@@ -22,7 +22,7 @@ public final class DataReader {
             .toString ();
         final var configDirectory = ofNullable (getenv ("PROPERTIES_PROPS_PATH")).orElse (
             ofNullable (getProperty ("login.props.path")).orElse (defaultPath));
-        final var configPath = Path.of (configDirectory, "cbsMaster-props.json")
+        final var configPath = Path.of (configDirectory, "cilantro-props.json")
             .toString ();
         cbsMasterProps = JsonUtil.fromFile (configPath, cbsMasterProps.class);
         return LOGGER.traceExit (cbsMasterProps);

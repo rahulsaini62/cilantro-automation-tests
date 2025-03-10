@@ -3,15 +3,13 @@
 @allure.label.page:/{org}/{cilantro}/web
 @allure.label.suite:Regression_Suite
 @allure.label.subSuite:simulations
-@SimulationPage
-
-
+#@SimulationPage
 Feature: Simulation Feature
   This feature is having scenarios to test the simulation feature.
 
   Background:
-    Given User hit the cbs app url "cilantro.app.url".
-    And User login with username as "cilantro.username" and password as "cilantro.password" on cbs admin
+    Given User hit the cilantro app url "cilantro.app.url".
+    And User login with username as "cilantro.username" and password as "cilantro.password" on cilantro
 
   Scenario:Verify Regular Initiate Menu Plan.
     When Verify cilantro dashboard should display.
