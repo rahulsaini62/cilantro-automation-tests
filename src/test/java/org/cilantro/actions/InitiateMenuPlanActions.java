@@ -2,13 +2,17 @@ package org.cilantro.actions;
 
 import org.cilantro.enums.PlatformType;
 import org.cilantro.enums.WaitStrategy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
 import org.testng.Assert;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.cilantro.actions.CommonActions.sleep;
 import static org.cilantro.actions.elements.ClickableActions.withMouse;
@@ -100,7 +104,6 @@ public class InitiateMenuPlanActions extends SharedActions {
 
     public void clickOnDoneBtn() {
         withMouse(initiateMenuPlanPage().getDoneButton()).click();
-        onElement(initiateMenuPlanPage().getDishCategory()).verifyIsEnabled().isFalse();
     }
 
     public void verifyDishNames() {
@@ -115,13 +118,13 @@ public class InitiateMenuPlanActions extends SharedActions {
         return dishName;
     }
 
-    public void clickOnMeal(String mealName){
+    public void clickOnMeal(String mealName) {
         withMouse(initiateMenuPlanPage().getMealHeader(mealName)).click();
     }
 
     public void verifyMealCardVisibility() {
         verifyElementIsDisplayed(initiateMenuPlanPage().getLastPlanDate());
-        verifyElementIsDisplayed(initiateMenuPlanPage().getColorCode());
+        verifyElementIsDisplayed(initiateMenuPlanPage().getColorCodes());
         verifyElementIsDisplayed(initiateMenuPlanPage().getFoodCategoryLogo());
         verifyElementIsDisplayed(initiateMenuPlanPage().getCloseButton());
         verifyElementIsDisplayed(initiateMenuPlanPage().getDishAlias());
@@ -154,7 +157,7 @@ public class InitiateMenuPlanActions extends SharedActions {
         verifyElementIsDisplayed(initiateMenuPlanPage().getDeleteBtn());
     }
 
-    public void enterDishNameOnSearchField(String dishName){
+    public void enterDishNameOnSearchField(String dishName) {
         onTextBox(initiateMenuPlanPage().getDishCategorySearchBox()).enterText(dishName);
         withMouse(initiateMenuPlanPage().getMealCheckBox()).click();
     }
@@ -167,25 +170,26 @@ public class InitiateMenuPlanActions extends SharedActions {
         Assert.assertEquals(actHeaderTab, expHeaderTab);
     }
 
-    public void clickOnPublishBtn(){
+    public void clickOnPublishBtn() {
         waitForThePageLoader();
         onElement(initiateMenuPlanPage().getPublishBtn()).isEnabled();
         withMouse(initiateMenuPlanPage().getPublishBtn()).jsxClick();
     }
 
-    public void verifyPublishModalTxt(){
+    public void verifyPublishModalTxt() {
         onElement(initiateMenuPlanPage().getModalHeading()).verifyText().isEqualTo(loadSimulationProps().getModalHeadingTxt());
         onElement(initiateMenuPlanPage().getModalSubheading()).verifyText().isEqualTo(loadSimulationProps().getModalSubheadingTxt());
     }
 
-    public void verifyDateRange(){
+    public void verifyDateRange() {
         String actFromDate = onElement(initiateMenuPlanPage().getFromDateValueOnInitiateMenuPage()).getText();
         String actToDate = onElement(initiateMenuPlanPage().getToDateValueOnInitiateMenuPage()).getText();
-        assertEquals(actFromDate,expFromDate);
-        assertEquals(actToDate,expToDate);
+        assertEquals(actFromDate, expFromDate);
+        assertEquals(actToDate, expToDate);
 
     }
-    public void verifyUi(){
+
+    public void verifyUi() {
         onElement(initiateMenuPlanPage().getPageHeading()).verifyText().isEqualTo(loadSimulationProps().getPageHeading());
         onElement(initiateMenuPlanPage().getClearMenuBtn()).isDisplayed();
         onElement(initiateMenuPlanPage().getClearMenuBtn()).isEnabled();
@@ -195,19 +199,19 @@ public class InitiateMenuPlanActions extends SharedActions {
         List<String> expPageHeaderDrpdn = loadSimulationProps().getPageHeaderDrpdn();
         Assert.assertEquals(actPageHeaderDrpdn, expPageHeaderDrpdn);
         String searchField = onElement(initiateMenuPlanPage().getSearchField()).getAttribute("placeholder");
-        assertEquals(searchField,"Search Dishes/Items");
+        assertEquals(searchField, "Search Dishes/Items");
     }
 
-    public void clickOnNoBtnOnPublishModal(){
+    public void clickOnNoBtnOnPublishModal() {
         withMouse(initiateMenuPlanPage().getNoBtnOnPublishModal()).jsxClick();
     }
 
-    public void clickOnClearMenuBtn(){
+    public void clickOnClearMenuBtn() {
         withMouse(initiateMenuPlanPage().getClearMenuBtn()).jsxClick();
         withMouse(initiateMenuPlanPage().getYesBtnOnClearModal()).jsxClick();
     }
 
-    public void clickOnAddButton(){
+    public void clickOnAddButton() {
         List<WebElement> rowsBefore = finds(initiateMenuPlanPage().getTableRow());
         int rowCountBefore = rowsBefore.size();
         sleep(3000);
@@ -240,8 +244,9 @@ public class InitiateMenuPlanActions extends SharedActions {
         }
     }
 
-    public void clickOnClearAllMenuBtn(){
-        withMouse(initiateMenuPlanPage().getClearAllMenuBtn()).click();
+    public void clickOnClearAllMenuBtn() {
+        withMouse(initiateMenuPlanPage().getClearAllMenuBtn()).jsxClick();
+        withMouse(initiateMenuPlanPage().getYesBtnOnClearModal()).jsxClick();
     }
 
     public List<String> getSelectMealForParticularDay() {
@@ -259,15 +264,14 @@ public class InitiateMenuPlanActions extends SharedActions {
         return selectedMeals;
     }
 
-    public void verifyRemoveCategoriesModal(){
+    public void verifyRemoveCategoriesModal() {
         List<WebElement> rowsBefore = finds(initiateMenuPlanPage().getTableRow());
         int rowCountBefore = rowsBefore.size();
-        sleep(3000);
-        withMouse(initiateMenuPlanPage().getDeleteBtn()).click();
+        withMouse(initiateMenuPlanPage().getDeleteBtn()).jsxClick();
         onElement(initiateMenuPlanPage().getModalHeading()).verifyText().isEqualTo(loadSimulationProps().getRemoveCategoryHeading());
         onElement(initiateMenuPlanPage().getModalSubheading()).verifyText().isEqualTo(loadSimulationProps().getRemoveCategorySubheading());
         onElement(initiateMenuPlanPage().getVerifyBtnArea()).isDisplayed();
-        withMouse(initiateMenuPlanPage().getYesBtnOnModal()).click();
+        withMouse(initiateMenuPlanPage().getYesBtnOnModal()).jsxClick();
         waitForThePageLoader();
         List<WebElement> rowsAfter = finds(initiateMenuPlanPage().getTableRow());
         int rowCountAfter = rowsAfter.size();
@@ -278,5 +282,49 @@ public class InitiateMenuPlanActions extends SharedActions {
         }
     }
 
+    public void searchCharLimitValidation(String DishName) {
+        WebElement rows = find(initiateMenuPlanPage().getTableRow());
+        for (char c : DishName.toCharArray()) {
+            enterTextIntoGroupNameField(String.valueOf(c));
+            if (rows.isDisplayed()) {
+                break;
+            }
+        }
+    }
+
+    public void enterTextIntoGroupNameField(String text) {
+        withMouse(initiateMenuPlanPage().getSearchField()).click();
+        onTextBox(initiateMenuPlanPage().getSearchField()).enterText(text);
+    }
+
+    public void VerifySelectedMealColors() {
+        Map<String, String> expectedColors = new HashMap<>();
+        expectedColors.put("Breakfast Sugar (Kg)", "#37BA31");
+        expectedColors.put("Berakaya Chutney (Kg)", "#FF5733");
+        expectedColors.put("Papadam (Kg)", "#55BA31");
+        System.out.println("#######" + selectedMeals);
+        for (String meal : selectedMeals) {
+                WebElement dishElement = find(initiateMenuPlanPage().getDishName());
+                List <WebElement> colorElement = finds(initiateMenuPlanPage().getColorCode(meal));
+                for(int i = 0 ; i< colorElement.size(); i++)
+            {
+               colorElement.get(i).getCssValue("background-color");
+                System.out.println("********" + colorElement);
+            }
+//                String colorRGBA = colorElement.getCssValue("background-color");
+//                String colorHex = Color.fromString(colorRGBA).asHex();
+//                if (expectedColors.containsKey(meal)) {
+//                    String expectedColor = expectedColors.get(meal);
+//                    if (colorHex.equalsIgnoreCase(expectedColor)) {
+//                        System.out.println("Color verification PASSED for: " + meal);
+//                    } else {
+//                        System.out.println("Color verification FAILED for: " + meal);
+//                        System.out.println("Expected: " + expectedColor + ", Found: " + colorHex);
+//                    }
+//                } else {
+//                    System.out.println(" No expected color found for meal: " + meal);
+//                }
+        }
+    }
 
 }

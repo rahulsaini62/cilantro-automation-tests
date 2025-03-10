@@ -30,5 +30,6 @@
   ],
   "page_heading": "Initiate Menu Plan",
   "remove_category_heading": "Remove Categories",
-  "remove_category_subheading": "This will remove the entire row. All changes will be lost. Do you want to continue?"
+  "remove_category_subheading": "This will remove the entire row. All changes will be lost. Do you want to continue?",
+  "search_min_char_limit": 3
 }

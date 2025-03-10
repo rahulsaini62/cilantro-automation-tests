@@ -61,7 +61,7 @@ public class InitiateMenuPlanPage {
     }
 
      private final Locator applyForAllDaysDrpdnUnderMeals = Locator.buildLocator()
-             .web(cssSelector(".apply-all.css-1plsf6o > div > div > div > div"))
+             .web(cssSelector(".apply-all.css-1plsf6o > div.select-wrapper > div > div > div"))
              .name("Apply for all days dropdown")
              .build();
 
@@ -85,7 +85,7 @@ public class InitiateMenuPlanPage {
             .name("Dish Name")
             .build();
 
-    private final Locator colorCode = Locator.buildLocator()
+    private final Locator colorCodes = Locator.buildLocator()
             .web(cssSelector("div.colorCode"))
             .name("Color Code")
             .build();
@@ -241,7 +241,7 @@ public class InitiateMenuPlanPage {
             .build();
 
     private final Locator deleteBtn = Locator.buildLocator()
-            .web(cssSelector(".delete-btn"))
+            .web(cssSelector(".cmenu-btn.delete-btn"))
             .name("Delete Btn")
             .build();
 
@@ -261,7 +261,14 @@ public class InitiateMenuPlanPage {
             .build();
 
     private final Locator yesBtnOnModal = Locator.buildLocator()
-            .web(cssSelector("//button[text()='Yes']"))
+            .web(xpath("//button[text()='Yes']"))
             .name("Yes Btn")
             .build();
+
+    public final Locator getColorCode(String mealName) {
+        return Locator.buildLocator()
+                .web(xpath("//strong[@class='c-title-inner' and starts-with(text(),'"+mealName+"')]/../../..//div[@class='colorCode']"))
+                .name(String.format("tab under Menu %s", mealName))
+                .build();
+    }
 }

@@ -16,4 +16,5 @@ public class SimulationProps {
     private String       pageHeading;
     private String       removeCategoryHeading;
     private String       removeCategorySubheading;
+    private String       searchMinCharLimit;
 }

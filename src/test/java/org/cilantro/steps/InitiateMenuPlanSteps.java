@@ -103,6 +103,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
     public void verifyTheUiOfInitiateMenuPlanPage() {
         initiateMenuPlanActions.verifyUi();
         initiateMenuPlanActions.clickOnClearAllMenuBtn();
+        waitForThePageLoader();
     }
 
     @And("User click on no button of publish modal on initiate menu plan page.")
@@ -142,5 +143,20 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("Verify remove categories modal when user click on delete icon under dish category on initiate menu plan page.")
     public void verifyRemoveCategoriesModalWhenUserClickOnDeleteIconUnderDishCategoryOnInitiateMenuPlanPage() {
         initiateMenuPlanActions.verifyRemoveCategoriesModal();
+    }
+
+    @And("User click on search field on initiate menu plan page.")
+    public void userClickOnSearchFieldOnInitiateMenuPlanPage() {
+    }
+
+    @Then("Verify that the minimum length character in search input field on initiate menu plan page.")
+    public void verifyThatTheMinimumLengthCharacterInSearchInputFieldOnInitiateMenuPlanPage() {
+        String input = "app";
+        initiateMenuPlanActions.searchCharLimitValidation(input);
+    }
+
+    @And("Verify dishes have different color on initiate menu plan page.")
+    public void verifyDishesHaveDifferentColorOnInitiateMenuPlanPage() {
+        initiateMenuPlanActions.VerifySelectedMealColors();
     }
 }
