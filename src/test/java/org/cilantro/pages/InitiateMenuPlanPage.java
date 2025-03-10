@@ -271,4 +271,19 @@ public class InitiateMenuPlanPage {
                 .name(String.format("tab under Menu %s", mealName))
                 .build();
     }
+
+    private final Locator searchDish = Locator.buildLocator()
+            .web(cssSelector("div.MuiInputBase-root.css-1wyr7t0"))
+            .name("Search Dish")
+            .build();
+
+    private final Locator dishCard = Locator.buildLocator()
+            .web(xpath("//div[contains(@class,'card-wrapper')]"))
+            .name("Search Dish")
+            .build();
+
+    private final Locator dishNameElement = Locator.buildLocator()
+            .web(xpath(".//div[contains(@class,'recipeTitle-wrapper')]"))
+            .name("Search Dish")
+            .build();
 }

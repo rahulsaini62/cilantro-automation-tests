@@ -119,8 +119,8 @@ Feature: Simulation Feature
     When Verify cilantro dashboard should display.
     When User click on "Planning" tab under menu on dashboard page.
     And User click on "Initiate Menu Plan" tab under "Planning" tab under menu on dashboard page.
-    And User select "14" from date from future month of calender on initiate menu plan page.
-    And User select "20" to date from future month of calender on initiate menu plan page.
+    And User select "7" from date from future month of calender on initiate menu plan page.
+    And User select "13" to date from future month of calender on initiate menu plan page.
     And User click on go button on initiate menu plan page.
     And Verify the ui of initiate menu plan page.
     And User click on "Food Program" header on initiate menu plan page.
@@ -134,7 +134,7 @@ Feature: Simulation Feature
     When Verify cilantro dashboard should display.
     When User click on "Planning" tab under menu on dashboard page.
     And User click on "Initiate Menu Plan" tab under "Planning" tab under menu on dashboard page.
-    And User select "14" from date from future month of calender on initiate menu plan page.
-    And User select "20" to date from future month of calender on initiate menu plan page.
+    And User select "21" from date from future month of calender on initiate menu plan page.
+    And User select "27" to date from future month of calender on initiate menu plan page.
     And User click on go button on initiate menu plan page.
     Then Verify that the minimum length character in search input field on initiate menu plan page.

@@ -151,7 +151,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
 
     @Then("Verify that the minimum length character in search input field on initiate menu plan page.")
     public void verifyThatTheMinimumLengthCharacterInSearchInputFieldOnInitiateMenuPlanPage() {
-        String input = "app";
+        String input = "ap";
         initiateMenuPlanActions.searchCharLimitValidation(input);
     }
 
