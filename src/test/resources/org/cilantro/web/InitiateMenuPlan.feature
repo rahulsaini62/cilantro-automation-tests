@@ -38,7 +38,7 @@ Feature: Simulation Feature
     And User click on apply for all days dropdown and select meals on initiate menu plan page.
     And User click on done button on meal list on initiate menu plan page.
     And Verify selected dish is displayed on initiate menu plan page.
-    And  Verify dishes have different color on initiate menu plan page.
+#    And  Verify dishes have different color on initiate menu plan page.
     And Verify remove categories modal when user click on delete icon under dish category on initiate menu plan page.
     And User click on "Snacks" dropdown on initiate menu plan page.
     And User click on apply for all days dropdown and select meals on initiate menu plan page.

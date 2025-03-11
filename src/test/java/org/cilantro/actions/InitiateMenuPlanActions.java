@@ -9,7 +9,9 @@ import org.testng.Assert;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.cilantro.actions.CommonActions.sleep;
 import static org.cilantro.actions.elements.ClickableActions.withMouse;
@@ -296,6 +298,16 @@ public class InitiateMenuPlanActions extends SharedActions {
     }
 
     public void VerifySelectedMealColors() {
+        Map<String, String> dishColorMap = new HashMap<>();
+        dishColorMap.put("Ambur Egg Biryani", "#FFE473");
+        dishColorMap.put("Achari Baingan (Kg)", "#C07715");
+        dishColorMap.put("Achari Aloo (Kg)", "#FFE473");
+        dishColorMap.put("Aam Panna (Kg)", "#37BA31");
+        dishColorMap.put("Breakfast Sugar (Kg)", "#FFFFFF");
+        dishColorMap.put("Beerakaya Chutney (Kg)", "#37BA31");
+        dishColorMap.put("Appadam (Kg)", "#FFE473");
+        dishColorMap.put("Amul Processed Cheese (Kg)", "#FFFCC8");
+        dishColorMap.put("65 Marination (Kg)", "#37BA31");
         List<WebElement> dishCards = finds(initiateMenuPlanPage().getDishCard());
         for (WebElement dishCard : dishCards) {
                 WebElement dishNameElement = find(initiateMenuPlanPage().getDishNameElement());
@@ -303,14 +315,16 @@ public class InitiateMenuPlanActions extends SharedActions {
                 WebElement colorCodeElement = find(initiateMenuPlanPage().getColorCodes());
                 String colorRGBA = colorCodeElement.getCssValue("background-color");
                 String colorHex = Color.fromString(colorRGBA).asHex();
-                System.out.println("Dish: " + dishName + " | Color Code: " + colorHex);
-                if (dishName.contains("Ambur Egg Biryani") && colorHex.equalsIgnoreCase("#FFE473")) {
-                    System.out.println("Test Passed for: " + dishName);
-                } else if (dishName.contains("Achari Baingan") && colorHex.equalsIgnoreCase("#XYZ123")) {
-                    System.out.println("Test Passed for: " + dishName);
+            String expectedColorHex = dishColorMap.get(dishName);
+            if (expectedColorHex != null) {
+                if (colorHex.equalsIgnoreCase(expectedColorHex)) {
+                    System.out.println("Test Passed: Color matches expected value for " + dishName);
                 } else {
                     System.out.println("Test Failed: Unexpected color for " + dishName);
                 }
+            } else {
+                System.out.println("No expected color defined for " + dishName);
+            }
         }
         }
     }
