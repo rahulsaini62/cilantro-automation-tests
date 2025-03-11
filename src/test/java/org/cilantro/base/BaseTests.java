@@ -46,17 +46,17 @@ public class BaseTests {
 
     @After(order = 1)
     public void afterScenario(final Scenario scenario) {
-        if (scenario.isFailed()) {
-            WindowActions.onWindow()
-                    .takeScreenshot();
-            final byte[] screenshot = ((TakesScreenshot) ParallelSession.getSession()
-                    .getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "transaction-failed");
-            Allure.addAttachment("Failed Screenshot", new ByteArrayInputStream(screenshot));
-        }
-        DriverActions.withDriver()
-                .saveLogs();
-        ParallelSession.clearSession();
+//        if (scenario.isFailed()) {
+//            WindowActions.onWindow()
+//                    .takeScreenshot();
+//            final byte[] screenshot = ((TakesScreenshot) ParallelSession.getSession()
+//                    .getDriver()).getScreenshotAs(OutputType.BYTES);
+//            scenario.attach(screenshot, "image/png", "transaction-failed");
+//            Allure.addAttachment("Failed Screenshot", new ByteArrayInputStream(screenshot));
+//        }
+//        DriverActions.withDriver()
+//                .saveLogs();
+//        ParallelSession.clearSession();
     }
 
 //    @AfterAll

@@ -4,6 +4,7 @@ import org.cilantro.builders.Locator;
 
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.xpath;
+
 import lombok.Getter;
 
 @Getter
@@ -60,10 +61,10 @@ public class InitiateMenuPlanPage {
                 .build();
     }
 
-     private final Locator applyForAllDaysDrpdnUnderMeals = Locator.buildLocator()
-             .web(cssSelector(".apply-all.css-1plsf6o > div.select-wrapper > div > div > div"))
-             .name("Apply for all days dropdown")
-             .build();
+    private final Locator applyForAllDaysDrpdnUnderMeals = Locator.buildLocator()
+            .web(cssSelector(".apply-all.css-1plsf6o > div.select-wrapper > div > div > div"))
+            .name("Apply for all days dropdown")
+            .build();
 
     private final Locator mealList = Locator.buildLocator()
             .web(cssSelector("div.ReactVirtualized__Grid li"))
@@ -266,24 +267,10 @@ public class InitiateMenuPlanPage {
             .build();
 
     public final Locator getColorCode(String mealName) {
+        System.out.println("22222222222" + mealName);
         return Locator.buildLocator()
-                .web(xpath("//strong[@class='c-title-inner' and starts-with(text(),'"+mealName+"')]/../../..//div[@class='colorCode']"))
+                .web(xpath("//strong[@class='c-title-inner' and starts-with(text(),'" + mealName + "')]/../../..//div[@class='colorCode']"))
                 .name(String.format("tab under Menu %s", mealName))
                 .build();
     }
-
-    private final Locator searchDish = Locator.buildLocator()
-            .web(cssSelector("div.MuiInputBase-root.css-1wyr7t0"))
-            .name("Search Dish")
-            .build();
-
-    private final Locator dishCard = Locator.buildLocator()
-            .web(xpath("//div[contains(@class,'card-wrapper')]"))
-            .name("Search Dish")
-            .build();
-
-    private final Locator dishNameElement = Locator.buildLocator()
-            .web(xpath(".//div[contains(@class,'recipeTitle-wrapper')]"))
-            .name("Search Dish")
-            .build();
 }

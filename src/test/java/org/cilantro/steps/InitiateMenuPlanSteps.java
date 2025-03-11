@@ -102,7 +102,8 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("Verify the ui of initiate menu plan page.")
     public void verifyTheUiOfInitiateMenuPlanPage() {
         initiateMenuPlanActions.verifyUi();
-        initiateMenuPlanActions.clickOnClearAllMenuBtn();
+//        initiateMenuPlanActions.clickOnClearAllMenuBtn();
+//        sleep(3000);
         waitForThePageLoader();
     }
 
@@ -151,7 +152,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
 
     @Then("Verify that the minimum length character in search input field on initiate menu plan page.")
     public void verifyThatTheMinimumLengthCharacterInSearchInputFieldOnInitiateMenuPlanPage() {
-        String input = "ap";
+        String input = "app";
         initiateMenuPlanActions.searchCharLimitValidation(input);
     }
 

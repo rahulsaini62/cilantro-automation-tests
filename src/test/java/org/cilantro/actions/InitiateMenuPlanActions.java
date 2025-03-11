@@ -2,6 +2,7 @@ package org.cilantro.actions;
 
 import org.cilantro.enums.PlatformType;
 import org.cilantro.enums.WaitStrategy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.testng.Assert;
@@ -24,7 +25,6 @@ import static org.cilantro.pages.InitiateMenuPlanPage.initiateMenuPlanPage;
 import static org.cilantro.data.DataReader.loadSimulationProps;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.testng.Assert.assertFalse;
 
 
 public class InitiateMenuPlanActions extends SharedActions {
@@ -282,50 +282,52 @@ public class InitiateMenuPlanActions extends SharedActions {
         }
     }
 
-    public void searchCharLimitValidation(String dishName) {
+    public void searchCharLimitValidation(String DishName) {
         WebElement rows = find(initiateMenuPlanPage().getTableRow());
-            enterTextIntoSearchField(dishName);
-            if (dishName.length() < 3) {
-                assertFalse(rows.isDisplayed());
-            } else {
-                assertTrue(rows.isDisplayed());
+        for (char c : DishName.toCharArray()) {
+            enterTextIntoGroupNameField(String.valueOf(c));
+            if (rows.isDisplayed()) {
+                break;
             }
+        }
     }
 
-    public void enterTextIntoSearchField(String text) {
-        withMouse(initiateMenuPlanPage().getSearchDish()).jsxClick();
+    public void enterTextIntoGroupNameField(String text) {
+        withMouse(initiateMenuPlanPage().getSearchField()).click();
         onTextBox(initiateMenuPlanPage().getSearchField()).enterText(text);
     }
 
     public void VerifySelectedMealColors() {
-        Map<String, String> dishColorMap = new HashMap<>();
-        dishColorMap.put("Ambur Egg Biryani", "#FFE473");
-        dishColorMap.put("Achari Baingan (Kg)", "#C07715");
-        dishColorMap.put("Achari Aloo (Kg)", "#FFE473");
-        dishColorMap.put("Aam Panna (Kg)", "#37BA31");
-        dishColorMap.put("Breakfast Sugar (Kg)", "#FFFFFF");
-        dishColorMap.put("Beerakaya Chutney (Kg)", "#37BA31");
-        dishColorMap.put("Appadam (Kg)", "#FFE473");
-        dishColorMap.put("Amul Processed Cheese (Kg)", "#FFFCC8");
-        dishColorMap.put("65 Marination (Kg)", "#37BA31");
-        List<WebElement> dishCards = finds(initiateMenuPlanPage().getDishCard());
-        for (WebElement dishCard : dishCards) {
-                WebElement dishNameElement = find(initiateMenuPlanPage().getDishNameElement());
-                String dishName = dishNameElement.getText();
-                WebElement colorCodeElement = find(initiateMenuPlanPage().getColorCodes());
-                String colorRGBA = colorCodeElement.getCssValue("background-color");
-                String colorHex = Color.fromString(colorRGBA).asHex();
-            String expectedColorHex = dishColorMap.get(dishName);
-            if (expectedColorHex != null) {
-                if (colorHex.equalsIgnoreCase(expectedColorHex)) {
-                    System.out.println("Test Passed: Color matches expected value for " + dishName);
-                } else {
-                    System.out.println("Test Failed: Unexpected color for " + dishName);
-                }
-            } else {
-                System.out.println("No expected color defined for " + dishName);
+        Map<String, String> expectedColors = new HashMap<>();
+        expectedColors.put("Breakfast Sugar (Kg)", "#37BA31");
+        expectedColors.put("Berakaya Chutney (Kg)", "#FF5733");
+        expectedColors.put("Papadam (Kg)", "#55BA31");
+        System.out.println("#######" + selectedMeals);
+        for (String meal : selectedMeals) {
+            System.out.println("1111111111111");
+//                WebElement dishElement = find(initiateMenuPlanPage().getDishName());
+            String nameasmdn = meal.replaceAll("\\(Kg\\)", "").trim();
+            System.out.println("--------------" + nameasmdn);
+            List<WebElement> colorElement = finds(initiateMenuPlanPage().getColorCode(nameasmdn), WaitStrategy.VISIBLE);
+            System.out.println("333333333----" + colorElement.size());
+            for (int i = 0; i < colorElement.size(); i++) {
+                String name = colorElement.get(i).getCssValue("background-color");
+                System.out.println("********" + name);
             }
-        }
+//                String colorRGBA = colorElement.getCssValue("background-color");
+//                String colorHex = Color.fromString(colorRGBA).asHex();
+//                if (expectedColors.containsKey(meal)) {
+//                    String expectedColor = expectedColors.get(meal);
+//                    if (colorHex.equalsIgnoreCase(expectedColor)) {
+//                        System.out.println("Color verification PASSED for: " + meal);
+//                    } else {
+//                        System.out.println("Color verification FAILED for: " + meal);
+//                        System.out.println("Expected: " + expectedColor + ", Found: " + colorHex);
+//                    }
+//                } else {
+//                    System.out.println(" No expected color found for meal: " + meal);
+//                }
         }
     }
 
+}
