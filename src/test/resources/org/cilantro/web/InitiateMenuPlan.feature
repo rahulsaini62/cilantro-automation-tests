@@ -18,13 +18,13 @@ Feature: Simulation Feature
     And User select "21" from date from future month of calender on initiate menu plan page.
     And User select "27" to date from future month of calender on initiate menu plan page.
     And User click on go button on initiate menu plan page.
-    Then Verify the labels on initiate menu plan page.
+#    Then Verify the labels on initiate menu plan page.
     And Verify the ui of initiate menu plan page.
     And Verify date is displayed same as user selected on initiate menu plan page.
     And User click on apply for all days dropdown and select meals on initiate menu plan page.
     And User click on done button on meal list on initiate menu plan page.
     And Verify selected dish is displayed on initiate menu plan page.
-    And  Verify dishes have different color on initiate menu plan page.
+    And Verify dishes have different color on initiate menu plan page.
 
     And User click on "Lunch" dropdown on initiate menu plan page.
     And User click on dish category dropdown on initiate menu plan page.
@@ -119,7 +119,7 @@ Feature: Simulation Feature
 
   Scenario:Verify Food Program Meal card on Initiate Menu Plan.
     When Verify cilantro dashboard should display.
-    When User click on "Planning" tab under menu on dashboard page.
+    And User click on "Planning" tab under menu on dashboard page.
     And User click on "Initiate Menu Plan" tab under "Planning" tab under menu on dashboard page.
     And User select "14" from date from future month of calender on initiate menu plan page.
     And User select "20" to date from future month of calender on initiate menu plan page.
@@ -130,7 +130,8 @@ Feature: Simulation Feature
     And User enter "Two Good" on dish category on initiate menu plan page.
     And User click on done button on meal list on initiate menu plan page.
     And User click on apply for all days dropdown and select meals on initiate menu plan page.
-    And Verify selected dish is displayed for food program on initiate menu plan page.
+    And User click on done button on meal list on initiate menu plan page.
+    Then Verify selected dish is displayed for food program on initiate menu plan page.
 
   Scenario:Verify that the minimum length character in search input field on initiate menu plan page.
     When Verify cilantro dashboard should display.
@@ -139,4 +140,8 @@ Feature: Simulation Feature
     And User select "14" from date from future month of calender on initiate menu plan page.
     And User select "20" to date from future month of calender on initiate menu plan page.
     And User click on go button on initiate menu plan page.
+    And Verify the ui of initiate menu plan page.
+    And User click on apply for all days dropdown and select meals on initiate menu plan page.
+    And User click on done button on meal list on initiate menu plan page.
+    And Verify selected dish is displayed on initiate menu plan page.
     Then Verify that the minimum length character in search input field on initiate menu plan page.

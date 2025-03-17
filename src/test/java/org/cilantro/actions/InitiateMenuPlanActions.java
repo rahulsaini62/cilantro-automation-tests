@@ -23,8 +23,7 @@ import static org.cilantro.enums.WaitStrategy.VISIBLE;
 import static org.cilantro.manager.ParallelSession.getSession;
 import static org.cilantro.pages.InitiateMenuPlanPage.initiateMenuPlanPage;
 import static org.cilantro.data.DataReader.loadSimulationProps;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class InitiateMenuPlanActions extends SharedActions {
@@ -51,10 +50,11 @@ public class InitiateMenuPlanActions extends SharedActions {
     public void clickOnGoButton() {
         expFromDate = onElement(initiateMenuPlanPage().getFromDateValue()).getAttribute("value");
         expToDate = onElement(initiateMenuPlanPage().getToDateValue()).getAttribute("value");
-        onElement(initiateMenuPlanPage().getGoButton()).isDisplayed();
-        onElement(initiateMenuPlanPage().getGoButton()).isEnabled();
+//        onElement(initiateMenuPlanPage().getGoButton()).isDisplayed();
+//        onElement(initiateMenuPlanPage().getGoButton()).isEnabled();
+        sleep(1000);
         withMouse(initiateMenuPlanPage().getGoButton()).click();
-        sleep(500);
+        sleep(1000);
         waitForThePageLoader();
     }
 
@@ -282,14 +282,19 @@ public class InitiateMenuPlanActions extends SharedActions {
         }
     }
 
-    public void searchCharLimitValidation(String DishName) {
+    public void searchCharLimitValidation(String dishName) {
         WebElement rows = find(initiateMenuPlanPage().getTableRow());
-        for (char c : DishName.toCharArray()) {
-            enterTextIntoGroupNameField(String.valueOf(c));
-            if (rows.isDisplayed()) {
-                break;
-            }
+        enterTextIntoSearchField(dishName);
+        if (dishName.length() < 3) {
+            assertFalse(rows.isDisplayed());
+        } else {
+            assertTrue(rows.isDisplayed());
         }
+    }
+
+    public void enterTextIntoSearchField(String text) {
+        withMouse(initiateMenuPlanPage().getSearchDish()).jsxClick();
+        onTextBox(initiateMenuPlanPage().getSearchField()).enterText(text);
     }
 
     public void enterTextIntoGroupNameField(String text) {
@@ -299,34 +304,17 @@ public class InitiateMenuPlanActions extends SharedActions {
 
     public void VerifySelectedMealColors() {
         Map<String, String> expectedColors = new HashMap<>();
-        expectedColors.put("Breakfast Sugar (Kg)", "#37BA31");
-        expectedColors.put("Berakaya Chutney (Kg)", "#FF5733");
-        expectedColors.put("Papadam (Kg)", "#55BA31");
-        System.out.println("#######" + selectedMeals);
+        expectedColors.put("Achari Baingan", "rgba(192, 119, 21, 1)");
+        expectedColors.put("Achari Aloo", "rgba(255, 228, 115, 1)");
+        expectedColors.put("Aam Panna", "rgba(55, 186, 49, 1)");
+        expectedColors.put("65 Marination", "rgba(0, 0, 0, 0)");
         for (String meal : selectedMeals) {
-            System.out.println("1111111111111");
-//                WebElement dishElement = find(initiateMenuPlanPage().getDishName());
-            String nameasmdn = meal.replaceAll("\\(Kg\\)", "").trim();
-            System.out.println("--------------" + nameasmdn);
-            List<WebElement> colorElement = finds(initiateMenuPlanPage().getColorCode(nameasmdn), WaitStrategy.VISIBLE);
-            System.out.println("333333333----" + colorElement.size());
+            String expectedName = meal.replaceAll("\\(Kg\\)", "").trim();
+            List<WebElement> colorElement = finds(initiateMenuPlanPage().getColorCode(expectedName), WaitStrategy.VISIBLE);
             for (int i = 0; i < colorElement.size(); i++) {
                 String name = colorElement.get(i).getCssValue("background-color");
-                System.out.println("********" + name);
+                Assert.assertEquals(name, expectedColors.get(expectedName));
             }
-//                String colorRGBA = colorElement.getCssValue("background-color");
-//                String colorHex = Color.fromString(colorRGBA).asHex();
-//                if (expectedColors.containsKey(meal)) {
-//                    String expectedColor = expectedColors.get(meal);
-//                    if (colorHex.equalsIgnoreCase(expectedColor)) {
-//                        System.out.println("Color verification PASSED for: " + meal);
-//                    } else {
-//                        System.out.println("Color verification FAILED for: " + meal);
-//                        System.out.println("Expected: " + expectedColor + ", Found: " + colorHex);
-//                    }
-//                } else {
-//                    System.out.println(" No expected color found for meal: " + meal);
-//                }
         }
     }
 

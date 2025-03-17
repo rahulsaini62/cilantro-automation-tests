@@ -18,13 +18,14 @@ public class InitiateMenuPlanSteps extends SharedActions {
     private final Faker faker = new Faker();
 
 
-    public InitiateMenuPlanSteps(){
+    public InitiateMenuPlanSteps() {
         initiateMenuPlanActions = new InitiateMenuPlanActions();
     }
 
     @And("User select {string} from date from future month of calender on initiate menu plan page.")
     public void userSelectFromDateFromFutureMonthOfCalenderOnInitiateMenuPlanPage(String arg0) {
         initiateMenuPlanActions.clickOnFromDateCalenderBtn();
+        sleep(500);
         initiateMenuPlanActions.clickOnRightArrowOnCalender();
         initiateMenuPlanActions.selectDateOnCalender(arg0);
     }
@@ -32,6 +33,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("User select {string} to date from future month of calender on initiate menu plan page.")
     public void userSelectToDateFromFutureMonthOfCalenderOnInitiateMenuPlanPage(String arg0) {
         initiateMenuPlanActions.clickOnToDateCalenderBtn();
+        sleep(500);
         initiateMenuPlanActions.selectDateOnCalender(arg0);
     }
 
@@ -49,7 +51,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("User click on apply for all days dropdown and select meals on initiate menu plan page.")
     public void userClickOnApplyForAllDaysDropdownAndSelectMealsOnInitiateMenuPlanPage() {
         initiateMenuPlanActions.getSelectMeal();
-        }
+    }
 
     @And("User click on done button on meal list on initiate menu plan page.")
     public void userClickOnDoneButtonOnMealListOnInitiateMenuPlanPage() {
@@ -57,7 +59,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
     }
 
     @And("Verify selected dish is displayed on initiate menu plan page.")
-    public void verifySelectedDishIsDisplayedOnInitiateMenuPlanPage()throws ParseException {
+    public void verifySelectedDishIsDisplayedOnInitiateMenuPlanPage() throws ParseException {
         waitForThePageLoader();
         initiateMenuPlanActions.verifyDishNames();
         initiateMenuPlanActions.verifyMealCardVisibility();
@@ -102,8 +104,8 @@ public class InitiateMenuPlanSteps extends SharedActions {
     @And("Verify the ui of initiate menu plan page.")
     public void verifyTheUiOfInitiateMenuPlanPage() {
         initiateMenuPlanActions.verifyUi();
-//        initiateMenuPlanActions.clickOnClearAllMenuBtn();
-//        sleep(3000);
+        initiateMenuPlanActions.clickOnClearAllMenuBtn();
+        sleep(2000);
         waitForThePageLoader();
     }
 
@@ -152,7 +154,7 @@ public class InitiateMenuPlanSteps extends SharedActions {
 
     @Then("Verify that the minimum length character in search input field on initiate menu plan page.")
     public void verifyThatTheMinimumLengthCharacterInSearchInputFieldOnInitiateMenuPlanPage() {
-        String input = "app";
+        String input = "a";
         initiateMenuPlanActions.searchCharLimitValidation(input);
     }
 

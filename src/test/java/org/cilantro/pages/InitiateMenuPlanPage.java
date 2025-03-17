@@ -28,7 +28,7 @@ public class InitiateMenuPlanPage {
             .build();
 
     private final Locator rightArrowIcon = Locator.buildLocator()
-            .web(cssSelector(".MuiPickersArrowSwitcher-nextIconButton.css-4m8ul0 > svg"))
+            .web(xpath("//button[@title='Next month']"))
             .name("Arrow Right Icon On Calender")
             .build();
 
@@ -157,12 +157,12 @@ public class InitiateMenuPlanPage {
             .build();
 
     private final Locator fromDateValue = Locator.buildLocator()
-            .web(xpath("//input[@id=':r2:']"))
+            .web(xpath("//input[@id=':ra:']"))
             .name("From Date Value")
             .build();
 
     private final Locator toDateValue = Locator.buildLocator()
-            .web(xpath("//input[@id=':r4:']"))
+            .web(xpath("//input[@id=':rd:']"))
             .name("To Date Value")
             .build();
 
@@ -267,10 +267,14 @@ public class InitiateMenuPlanPage {
             .build();
 
     public final Locator getColorCode(String mealName) {
-        System.out.println("22222222222" + mealName);
         return Locator.buildLocator()
                 .web(xpath("//strong[@class='c-title-inner' and starts-with(text(),'" + mealName + "')]/../../..//div[@class='colorCode']"))
                 .name(String.format("tab under Menu %s", mealName))
                 .build();
     }
+
+    private final Locator searchDish = Locator.buildLocator()
+            .web(cssSelector(".MuiInputBase-root.css-1wyr7t0"))
+            .name("Search Dish")
+            .build();
 }
