@@ -86,6 +86,11 @@ public class InitiateMenuPlanPage {
             .name("Dish Name")
             .build();
 
+    private final Locator dishNameForTwoGood = Locator.buildLocator()
+            .web(cssSelector("div.c-title"))
+            .name("Dish Name")
+            .build();
+
     private final Locator colorCodes = Locator.buildLocator()
             .web(cssSelector("div.colorCode"))
             .name("Color Code")

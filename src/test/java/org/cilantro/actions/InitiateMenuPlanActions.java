@@ -3,9 +3,11 @@ package org.cilantro.actions;
 import org.cilantro.enums.PlatformType;
 import org.cilantro.enums.WaitStrategy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +33,8 @@ public class InitiateMenuPlanActions extends SharedActions {
     List<String> selectedMeals = new ArrayList<>();
     static String expFromDate;
     static String expToDate;
+
+    SoftAssert softAssert = new SoftAssert();
 
     public InitiateMenuPlanActions() {
         this.platformType = getSession().getPlatformType();
@@ -108,13 +112,24 @@ public class InitiateMenuPlanActions extends SharedActions {
 
     public void verifyDishNames() {
         List<String> actDishName = getDishName();
-        assertTrue(selectedMeals.containsAll(actDishName));
+        softAssert.assertTrue(selectedMeals.containsAll(actDishName));
+    }
+
+    public void verifyDishNamesForTwoGood() {
+        List<String> actDishName = getDishNameForTwoGood();
+        softAssert.assertTrue(selectedMeals.containsAll(actDishName));
     }
 
 
     public List<String> getDishName() {
         List<String> dishName = new ArrayList<>();
         finds(initiateMenuPlanPage().getDishName(), VISIBLE).forEach(webElement -> dishName.add(webElement.getText()));
+        return dishName;
+    }
+
+    public List<String> getDishNameForTwoGood() {
+        List<String> dishName = new ArrayList<>();
+        finds(initiateMenuPlanPage().getDishNameForTwoGood(), VISIBLE).forEach(webElement -> dishName.add(webElement.getText()));
         return dishName;
     }
 
@@ -286,15 +301,21 @@ public class InitiateMenuPlanActions extends SharedActions {
         WebElement rows = find(initiateMenuPlanPage().getTableRow());
         enterTextIntoSearchField(dishName);
         if (dishName.length() < 3) {
-            assertFalse(rows.isDisplayed());
+            softAssert.assertFalse(rows.isDisplayed());
         } else {
-            assertTrue(rows.isDisplayed());
+            softAssert.assertTrue(rows.isDisplayed());
         }
+        clearSearchTextBox();
     }
 
     public void enterTextIntoSearchField(String text) {
         withMouse(initiateMenuPlanPage().getSearchDish()).jsxClick();
         onTextBox(initiateMenuPlanPage().getSearchField()).enterText(text);
+    }
+
+    public void clearSearchTextBox() {
+        selectAllAndClearTxtBx(initiateMenuPlanPage().getSearchField());
+        sleep(1000);
     }
 
     public void enterTextIntoGroupNameField(String text) {

@@ -162,4 +162,18 @@ public class InitiateMenuPlanSteps extends SharedActions {
     public void verifyDishesHaveDifferentColorOnInitiateMenuPlanPage() {
         initiateMenuPlanActions.VerifySelectedMealColors();
     }
+
+    @And("User clear initiate menu plan")
+    public void userClearInitiateMenuPlan() {
+        initiateMenuPlanActions.clickOnClearAllMenuBtn();
+        sleep(2000);
+    }
+
+    @Then("Verify selected dish for {string} is displayed for food program on initiate menu plan page.")
+    public void verifySelectedDishForIsDisplayedForFoodProgramOnInitiateMenuPlanPage(String arg0) {
+        waitForThePageLoader();
+        initiateMenuPlanActions.verifyDishNamesForTwoGood();
+        initiateMenuPlanActions.verifyMealCardVisibility();
+        initiateMenuPlanActions.verifyDateTimeAssertionForFoodProgram();
+    }
 }

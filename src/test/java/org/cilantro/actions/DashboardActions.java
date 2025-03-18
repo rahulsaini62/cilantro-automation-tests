@@ -8,6 +8,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 import static org.cilantro.actions.CommonActions.sleep;
 import static org.cilantro.actions.elements.ClickableActions.withMouse;
 import static org.cilantro.actions.elements.ElementFinder.waitForElementClickable;
+import static org.cilantro.actions.elements.ElementFinder.waitForElementVisible;
 import static org.cilantro.manager.ParallelSession.getSession;
 import static org.cilantro.pages.DashboardPage.commonPage;
 
@@ -22,6 +23,7 @@ public class DashboardActions extends SharedActions {
 
 
     public void verifyCilantroDashboardShouldDisplay() {
+        waitForElementVisible(commonPage().getPageTitle());
         Assert.assertTrue(verifyElementIsDisplayed(commonPage().getPageTitle()),
                 "Cilantro Dashboard page is not displayed");
     }
